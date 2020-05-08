@@ -122,7 +122,20 @@ class AddNodeModal extends Component {
     if (resourceType === 0 || resourceType === 1) {
       return (
         <div>
-          <Form.Control id="abc" name="abc" type="text" placeholder="Bitcoin is a p2p cash system" onChange={(ev) => this.setState({ resourceData: ev.target.value })} />
+          <Form.Control
+            type="text"
+            placeholder="Bitcoin is a p2p cash system"
+            onChange={(ev) => {
+              const val = ev.target.value; // to save the virtual event
+              this.setState((prevState) => ({
+                resourceData: {
+                  ...prevState.resourceData,
+                  text: val,
+                  link: null,
+                },
+              }));
+            }}
+          />
           <Form.Control.Feedback type="invalid">
             Please provide valid resource data
           </Form.Control.Feedback>
