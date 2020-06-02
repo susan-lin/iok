@@ -2,7 +2,7 @@
 /* eslint-disable no-alert */
 import React, { Component } from 'react';
 import {
-    Button, Modal, Form
+    Button, Modal
 } from 'react-bootstrap';
 
 
