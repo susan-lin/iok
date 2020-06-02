@@ -34,6 +34,22 @@ export const addNode = (cy, data) => {
 };
 
 /**
+ *
+ * @param {*} cy
+ * @param {*} data including node_type, id, and name
+ */
+// eslint-disable-next-line no-shadow
+export const deleteNode = (cy, data) => {
+  try {
+    cy.remove(cy.$(data));
+  } catch (err) {
+    console.error(err);
+    alert('Failed to delete node.');
+  }
+};
+
+
+/**
  * Extract the json for the cy instance but only with nodes and edges
  * Dealing with the entire cy instance is too heavy and also comes with unintended
  * side effects (e.g. node highlighting and styles)

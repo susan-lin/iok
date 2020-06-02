@@ -7,13 +7,14 @@ import { sha256 } from 'js-sha256';
 import { PropTypes } from 'prop-types';
 import AddNodeModal from './AddNodeModal';
 import EditNodeModal from './EditNodeModal';
+import DeleteNodeModal from './DeleteNodeModal';
 import ListIoksModal from './ListIoksModal';
 import Log from './log';
 
 import './styles/IokText.css';
 
 import {
-  regroupCy, toggleDrawMode, toggleMeta, addNode, getNodesEdgesJson,
+  regroupCy, toggleDrawMode, toggleMeta, addNode, getNodesEdgesJson, deleteNode
 } from './listen';
 import { GRAPH_FILENAME } from './constants';
 import { NTYPE } from './types';
@@ -34,6 +35,7 @@ class IokText extends Component {
     this.onRegroupClick = this.onRegroupClick.bind(this);
     this.onAddClick = this.onAddClick.bind(this);
     this.addNodeToCy = this.addNodeToCy.bind(this);
+    this.delNodeToCy = this.delNodeToCy.bind(this);
     this.downloadGraph = this.downloadGraph.bind(this);
     this.onFileUploadHandler = this.onFileUploadHandler.bind(this);
     this.removeNodeFromCy = this.removeNodeFromCy.bind(this);
@@ -120,6 +122,11 @@ class IokText extends Component {
 
     Log.info('DATA', dataWithHash);
     return addNode(cy, dataWithHash);
+  }
+
+  delNodeToCy(data) {
+    const { cy } = this.state;
+    return deleteNode(cy, data);
   }
 
   toggleDeleteModal() {
@@ -288,7 +295,7 @@ class IokText extends Component {
                   updateEdges={this.updateEdgesFromCy}
                 />
                 <AddNodeModal addNode={this.addNodeToCy} />
-
+                <DeleteNodeModal node={node} delNode={this.delNodeToCy} />
                 <button
                   type="button"
                   className="btn btn-info btn-lg btn-util"
