@@ -14,7 +14,7 @@ import Log from './log';
 import './styles/IokText.css';
 
 import {
-  regroupCy, toggleDrawMode, toggleMeta, addNode, getNodesEdgesJson, deleteNode
+  regroupCy, toggleDrawMode, toggleMeta, addNode, getNodesEdgesJson,
 } from './listen';
 import { GRAPH_FILENAME } from './constants';
 import { NTYPE } from './types';
@@ -124,9 +124,13 @@ class IokText extends Component {
     return addNode(cy, dataWithHash);
   }
 
-  delNodeToCy(data) {
-    const { cy } = this.state;
-    return deleteNode(cy, data);
+  delNodeToCy(node) {
+    // recursively send in a node, if theres no incomers, delete it
+    const nodes = node.incomers((el) => el.isNode());
+    if (nodes) {
+      nodes.map((nodeIn) => this.delNodeToCy(nodeIn));
+    }
+    this.removeNodeFromCy(node);
   }
 
   toggleDeleteModal() {

@@ -1,23 +1,20 @@
 // eslint-disable-line
 /* eslint-disable no-alert */
 import React, { Component } from 'react';
-import {
-    Button, Modal
-} from 'react-bootstrap';
-
+import { Button, Modal } from 'react-bootstrap';
 
 import './styles/EditNodeModal.css';
 
 class DeleteNodeModal extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            isOpen: false,
-        };
-        this.toggleModal = this.toggleModal.bind(this);
-        this.handleClose = this.handleClose.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+  constructor(props) {
+    super(props);
+      this.state = {
+        isOpen: false,
+      };
+      this.toggleModal = this.toggleModal.bind(this);
+      this.handleClose = this.handleClose.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
     toggleModal() {
         const { isOpen } = this.state;
@@ -32,8 +29,9 @@ class DeleteNodeModal extends Component {
     }
 
     handleSubmit() {
+        const { node, delNode } = this.props;
         this.toggleModal();
-        this.props.delNode(this.props.node)
+        delNode(node)
     }
 
     render() {
@@ -53,12 +51,11 @@ class DeleteNodeModal extends Component {
                     <Modal.Footer>
                         <Button style={{ backgroundColor: '#a9a8a8' }} variant="primary" type="submit" onClick={this.handleSubmit}>
                             Confirm Delete
-            </Button>
+                        </Button>
                     </Modal.Footer>
-
                 </Modal>
             </div>
-        )
+        );
     }
 }
 
